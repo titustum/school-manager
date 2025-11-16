@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('disability_type')->nullable(); // e.g. hearing, visual etc.
 
             // Accommodation
-            $table->enum('accommodation', ['day', 'border'])->nullable();
+            $table->enum('accommodation', ['day', 'boarding'])->nullable();
 
             // Vulnerability
             $table->enum('vulnerability', [
