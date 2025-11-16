@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Students\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -17,6 +18,13 @@ class StudentInfolist
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
+                        ImageEntry::make('photo')
+                            ->label('Student Photo')
+                            ->disk('public')
+                            ->directory('students/photos')
+                            // if male show placeholder male image else female
+                            ->placeholderImageUrl(fn ($record) => $record->gender === 'male' ? '/images/placeholder-student-male.png' : '/images/placeholder-student-female.png')
+                            ->avatar(),
                         TextEntry::make('firstname'),
                         TextEntry::make('lastname'),
                         TextEntry::make('middlenames')

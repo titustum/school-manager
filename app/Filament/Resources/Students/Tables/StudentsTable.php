@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -16,6 +17,11 @@ class StudentsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('photo')
+                    ->label('Photo')
+                    ->disk('public')
+                    ->placeholderImageUrl(fn ($record) => $record->gender === 'male' ? '/images/placeholder-student-male.png' : '/images/placeholder-student-female.png')
+                    ->avatar(),
                 TextColumn::make('firstname')
                     ->searchable(),
                 TextColumn::make('lastname')

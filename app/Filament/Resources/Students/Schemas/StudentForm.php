@@ -27,6 +27,7 @@ class StudentForm
                             ->disk('public')                   // use public disk
                             ->imageEditor()                    // optional: enables crop/rotate/resize
                             ->maxSize(2048)                    // 2MB limit
+                            ->avatar()                         // make it a circle
                             ->nullable(),
                         TextInput::make('firstname')
                             ->required()
@@ -63,10 +64,21 @@ class StudentForm
                                 'other' => 'Other',
                             ])
                             ->nullable(),
-                        TextInput::make('accommodation'),
-                        TextInput::make('vulnerability')
+                        Select::make('accommodation')
                             ->required()
-                            ->default('none'),
+                            ->options([
+                                'day' => 'Day Scholar',
+                                'boarding' => 'Boarding',
+                            ]),
+                        Select::make('vulnerability')
+                            ->required()
+                            ->default('none')
+                            ->options([
+                                'none' => 'None',
+                                'single_parent' => 'Single Parent',
+                                'half_orphan' => 'Half Orphan',
+                                'full_orphan' => 'Full Orphan',
+                            ]),
                         TextInput::make('parent_name'),
                         TextInput::make('parent_phone')
                             ->tel(),
