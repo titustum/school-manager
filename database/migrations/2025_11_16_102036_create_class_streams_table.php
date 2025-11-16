@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_streams', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // ex: East, West, North, South, Central
             $table->timestamps();
         });
     }
