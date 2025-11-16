@@ -57,6 +57,7 @@ class StudentFactory extends Factory
 
             'parent_name' => $faker->name(),
             'parent_phone' => $faker->phoneNumber(),
+            'photo' => null, // Placeholder for photo path
         ];
     }
 }

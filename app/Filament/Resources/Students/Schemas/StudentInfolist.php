@@ -21,10 +21,10 @@ class StudentInfolist
                         ImageEntry::make('photo')
                             ->label('Student Photo')
                             ->disk('public')
-                            ->directory('students/photos')
+                            ->circular()
+                            ->extraAttributes(['class' => 'w-36 h-36 border-2 border-gray-300'])
                             // if male show placeholder male image else female
-                            ->placeholderImageUrl(fn ($record) => $record->gender === 'male' ? '/images/placeholder-student-male.png' : '/images/placeholder-student-female.png')
-                            ->avatar(),
+                            ->defaultImageUrl(fn ($record) => $record->gender === 'male' ? asset('images/placeholder-student-male.png') : asset('images/placeholder-student-female.png')),
                         TextEntry::make('firstname'),
                         TextEntry::make('lastname'),
                         TextEntry::make('middlenames')

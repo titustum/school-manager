@@ -20,8 +20,8 @@ class StudentsTable
                 ImageColumn::make('photo')
                     ->label('Photo')
                     ->disk('public')
-                    ->placeholderImageUrl(fn ($record) => $record->gender === 'male' ? '/images/placeholder-student-male.png' : '/images/placeholder-student-female.png')
-                    ->avatar(),
+                    ->defaultImageUrl(fn ($record) => $record->gender === 'male' ? asset('images/placeholder-student-male.png') : asset('images/placeholder-student-female.png'))
+                    ->circular(),
                 TextColumn::make('firstname')
                     ->searchable(),
                 TextColumn::make('lastname')
