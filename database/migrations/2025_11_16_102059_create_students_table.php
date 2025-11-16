@@ -25,6 +25,7 @@ return new class extends Migration
             // Basic Info
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone')->nullable();
+            $table->string('photo')->nullable();
 
             // Disability Info
             $table->boolean('disability')->default(false);

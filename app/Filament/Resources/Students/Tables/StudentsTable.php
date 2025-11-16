@@ -20,13 +20,11 @@ class StudentsTable
                     ->searchable(),
                 TextColumn::make('lastname')
                     ->searchable(),
-                TextColumn::make('middlenames')
-                    ->searchable(),
-                TextColumn::make('class_room_id')
-                    ->numeric()
+                TextColumn::make('classroom.name')
+                    ->label('Class Room')
                     ->sortable(),
-                TextColumn::make('class_stream_id')
-                    ->numeric()
+                TextColumn::make('classstream.name')
+                    ->label('Class Stream')
                     ->sortable(),
                 TextColumn::make('gender')
                     ->searchable(),
@@ -34,16 +32,6 @@ class StudentsTable
                     ->searchable(),
                 IconColumn::make('disability')
                     ->boolean(),
-                TextColumn::make('disability_type')
-                    ->searchable(),
-                TextColumn::make('accommodation')
-                    ->searchable(),
-                TextColumn::make('vulnerability')
-                    ->searchable(),
-                TextColumn::make('parent_name')
-                    ->searchable(),
-                TextColumn::make('parent_phone')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

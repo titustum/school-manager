@@ -23,6 +23,7 @@ class Student extends Model
         'vulnerability',
         'parent_name',
         'parent_phone',
+        'photo',
     ];
 
     protected $casts = [
