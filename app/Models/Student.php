@@ -30,7 +30,6 @@ class Student extends Model
     ];
 
     /** Relationships */
-
     public function classRoom()
     {
         return $this->belongsTo(ClassRoom::class);
@@ -42,9 +41,8 @@ class Student extends Model
     }
 
     /** Accessors & Helpers (optional) */
-
     public function getFullNameAttribute()
     {
-        return trim($this->firstname . ' ' . ($this->middlenames ? $this->middlenames . ' ' : '') . $this->lastname);
+        return trim($this->firstname.' '.($this->middlenames ? $this->middlenames.' ' : '').$this->lastname);
     }
 }

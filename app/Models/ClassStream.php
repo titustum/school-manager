@@ -14,7 +14,6 @@ class ClassStream extends Model
     ];
 
     /** Relationships */
-
     public function students()
     {
         return $this->hasMany(Student::class);

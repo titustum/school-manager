@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('firstname');
             $table->string('lastname');
             $table->string('middlenames')->nullable();
@@ -38,7 +38,7 @@ return new class extends Migration
                 'none',
                 'full_orphan',
                 'half_orphan',
-                'single_parent'
+                'single_parent',
             ])->default('none');
 
             // Parent/Guardian

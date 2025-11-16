@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\ClassRoom;
 use App\Models\ClassStream;
 use App\Models\Student;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as FakerFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
 {
@@ -39,24 +39,24 @@ class StudentFactory extends Factory
         ]);
 
         return [
-            'firstname'       => $faker->firstName($gender),
-            'lastname'        => $faker->lastName(),
-            'middlenames'     => $this->faker->optional()->firstName(),
+            'firstname' => $faker->firstName($gender),
+            'lastname' => $faker->lastName(),
+            'middlenames' => $this->faker->optional()->firstName(),
 
-            'class_room_id'   => ClassRoom::inRandomOrder()->first()->id,
+            'class_room_id' => ClassRoom::inRandomOrder()->first()->id,
             'class_stream_id' => ClassStream::inRandomOrder()->first()->id,
 
-            'gender'          => $gender,
-            'phone'           => $faker->phoneNumber(),
+            'gender' => $gender,
+            'phone' => $faker->phoneNumber(),
 
-            'disability'      => $hasDisability,
+            'disability' => $hasDisability,
             'disability_type' => $disabilityType,
 
-            'accommodation'   => $this->faker->randomElement(['day', 'boarding']),
-            'vulnerability'   => $vulnerability,
+            'accommodation' => $this->faker->randomElement(['day', 'boarding']),
+            'vulnerability' => $vulnerability,
 
-            'parent_name'     => $faker->name(),
-            'parent_phone'    => $faker->phoneNumber(),
+            'parent_name' => $faker->name(),
+            'parent_phone' => $faker->phoneNumber(),
         ];
     }
 }
