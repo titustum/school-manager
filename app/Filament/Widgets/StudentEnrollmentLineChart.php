@@ -24,11 +24,11 @@ class StudentEnrollmentLineChart extends ChartWidget
             ->count(); // counts number of students per month
 
         return [
-            'labels' => $trend->map(fn($entry) => $entry->date)->toArray(),
+            'labels' => $trend->map(fn ($entry) => $entry->date)->toArray(),
             'datasets' => [
                 [
                     'label' => 'Enrollments',
-                    'data' => $trend->map(fn($entry) => $entry->aggregate)->toArray(),
+                    'data' => $trend->map(fn ($entry) => $entry->aggregate)->toArray(),
                     'borderColor' => '#3B82F6',            // blue
                     'backgroundColor' => 'rgba(59, 130, 246, 0.3)', // light blue fill
                     'tension' => 0.4,

@@ -3,9 +3,9 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Student;
+use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Carbon\Carbon;
 
 class StudentOverviewStats extends StatsOverviewWidget
 {
@@ -13,7 +13,7 @@ class StudentOverviewStats extends StatsOverviewWidget
 
     protected function getStats(): array
     {
-        $total = Student::count(); 
+        $total = Student::count();
 
         // Calculate Average Age properly
         $ages = Student::pluck('date_of_birth')
@@ -26,7 +26,7 @@ class StudentOverviewStats extends StatsOverviewWidget
             Stat::make('Total Students', $total)
                 ->description('Total registered students')
                 ->icon('heroicon-o-academic-cap')
-                ->color('primary'), 
+                ->color('primary'),
 
             // AVERAGE AGE
             Stat::make('Average Age', "{$avgAge} yrs")
