@@ -24,10 +24,12 @@ class Student extends Model
         'parent_name',
         'parent_phone',
         'photo',
+        'date_of_birth',
     ];
 
     protected $casts = [
         'disability' => 'boolean',
+        'date_of_birth' => 'date',
     ];
 
     /** Relationships */
