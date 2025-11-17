@@ -59,6 +59,7 @@ class StudentFactory extends Factory
             'parent_phone' => $faker->phoneNumber(),
             'photo' => null, // Placeholder for photo path
             'date_of_birth' => $this->faker->dateTimeBetween('-20 years', '-5 years')->format('Y-m-d'),
+            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
         ];
     }
 }

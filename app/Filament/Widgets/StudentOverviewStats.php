@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\Student;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Carbon\Carbon;
 
 class StudentOverviewStats extends StatsOverviewWidget
 {
@@ -12,26 +13,34 @@ class StudentOverviewStats extends StatsOverviewWidget
 
     protected function getStats(): array
     {
+        $total = Student::count(); 
+
+        // Calculate Average Age properly
+        $ages = Student::pluck('date_of_birth')
+            ->map(fn ($dob) => Carbon::parse($dob)->age);
+
+        $avgAge = $ages->count() ? round($ages->avg(), 1) : 0;
 
         return [
-            Stat::make('Total Students', Student::count())
+            // TOTAL STUDENTS
+            Stat::make('Total Students', $total)
                 ->description('Total registered students')
-                ->descriptionIcon('heroicon-m-academic-cap')
-                ->color('primary'),
+                ->icon('heroicon-o-academic-cap')
+                ->color('primary'), 
 
-            Stat::make('Male Students', Student::where('gender', 'male')->count())
-                ->description('Gender: Male')
-                ->icon('heroicon-m-user')
-                ->color('info'),
-
-            Stat::make('Female Students', Student::where('gender', 'female')->count())
-                ->description('Gender: Female')
-                ->icon('heroicon-m-user-group')
+            // AVERAGE AGE
+            Stat::make('Average Age', "{$avgAge} yrs")
+                ->description('Calculated from date of birth')
+                ->icon('heroicon-o-clock')
                 ->color('rose'),
 
-            Stat::make('Disabled Students', Student::where('disability', true)->count())
+            // DISABLED STUDENTS
+            Stat::make(
+                'Disabled Students',
+                Student::where('disability', true)->count()
+            )
                 ->description('Students with registered disabilities')
-                ->icon('heroicon-m-hand-raised')
+                ->icon('heroicon-o-hand-raised')
                 ->color('warning'),
         ];
     }

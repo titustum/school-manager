@@ -4,42 +4,37 @@ namespace App\Filament\Widgets;
 
 use App\Models\Student;
 use Filament\Widgets\ChartWidget;
+use Flowframe\Trend\Trend;
 
-class MonthlyEnrollmentLineChart extends ChartWidget
+class StudentEnrollmentLineChart extends ChartWidget
 {
     protected static ?int $sort = 4;
 
-    protected ?string $heading = 'Monthly Enrollment Line Chart';
+    protected ?string $heading = 'Student Enrollment Line Chart';
 
     protected function getData(): array
     {
-        // Get last 12 months
-        $months = collect(range(0, 11))
-            ->map(fn ($i) => now()->subMonths($i))
-            ->reverse();
-
-        // Labels like: Jan, Feb, Mar...
-        $labels = $months->map(fn ($date) => $date->format('M'))->toArray();
-
-        // Count students for each month
-        $data = $months->map(function ($date) {
-            return Student::whereMonth('created_at', $date->month)
-                ->whereYear('created_at', $date->year)
-                ->count();
-        })->toArray();
+        // Generate trend of student enrollments per month over the past 12 months
+        $trend = Trend::model(Student::class)
+            ->between(
+                start: now()->subMonths(11)->startOfMonth(),
+                end: now()->endOfMonth(),
+            )
+            ->perMonth()
+            ->count(); // counts number of students per month
 
         return [
+            'labels' => $trend->map(fn($entry) => $entry->date)->toArray(),
             'datasets' => [
                 [
                     'label' => 'Enrollments',
-                    'data' => $data,
-                    'borderColor' => '#3B82F6', // blue-500
-                    'backgroundColor' => 'rgba(59, 130, 246, 0.4)',
+                    'data' => $trend->map(fn($entry) => $entry->aggregate)->toArray(),
+                    'borderColor' => '#3B82F6',            // blue
+                    'backgroundColor' => 'rgba(59, 130, 246, 0.3)', // light blue fill
                     'tension' => 0.4,
                     'fill' => true,
                 ],
             ],
-            'labels' => $labels,
         ];
     }
 
