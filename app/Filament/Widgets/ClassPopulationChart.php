@@ -48,6 +48,11 @@ class ClassPopulationChart extends ChartWidget
                     ],
                 ],
             ],
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+            ],
         ];
     }
 

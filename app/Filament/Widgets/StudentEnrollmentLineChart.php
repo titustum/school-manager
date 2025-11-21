@@ -54,6 +54,7 @@ class StudentEnrollmentLineChart extends ChartWidget
             'plugins' => [
                 'legend' => [
                     'position' => 'bottom',
+                    'display' => false,
                 ],
             ],
         ];

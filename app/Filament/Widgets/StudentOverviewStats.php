@@ -13,7 +13,8 @@ class StudentOverviewStats extends StatsOverviewWidget
 
     protected function getStats(): array
     {
-        $total = Student::count();
+        $totalStudents = Student::count();
+        $totalTeachers = 17;
 
         // Calculate Average Age properly
         $ages = Student::pluck('date_of_birth')
@@ -23,8 +24,14 @@ class StudentOverviewStats extends StatsOverviewWidget
 
         return [
             // TOTAL STUDENTS
-            Stat::make('Total Students', $total)
+            Stat::make('Total Students', $totalStudents)
                 ->description('Total registered students')
+                ->icon('heroicon-o-academic-cap')
+                ->color('primary'),
+                
+            // TOTAL TEACHERS
+            Stat::make('Total teachers', $totalTeachers)
+                ->description('Total school teachers')
                 ->icon('heroicon-o-academic-cap')
                 ->color('primary'),
 
