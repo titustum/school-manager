@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Students\Tables;
+namespace App\Filament\Widgets;
 
+use App\Models\Student;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -10,12 +11,22 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Widgets\TableWidget;
+use Illuminate\Database\Eloquent\Builder;
 
-class StudentsTable
+class LatestAddedStudentsTable extends TableWidget
 {
-    public static function configure(Table $table): Table
+    protected static ?int $sort = 5;
+
+    protected int|string|array $columnSpan = 'full';
+
+    protected int|string|array $rowSpan = 1;
+
+    public function table(Table $table): Table
     {
         return $table
+            ->paginated(false)
+            ->query(fn (): Builder => Student::query()->latest()->take(5)) // does not work and i dont know the problem
             ->columns([
                 ImageColumn::make('photo')
                     ->label('Photo')
@@ -25,7 +36,7 @@ class StudentsTable
                             : asset('images/female.jpg')
                     )
                     ->circular(),
-                TextColumn::make('fullname')
+                TextColumn::make('fullname') // fullname accessor in Student model
                     ->searchable(),
                 TextColumn::make('classroom.name')
                     ->label('Class Room')
@@ -49,6 +60,9 @@ class StudentsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                //
+            ])
+            ->headerActions([
                 //
             ])
             ->recordActions([

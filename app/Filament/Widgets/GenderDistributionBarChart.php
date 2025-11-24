@@ -52,4 +52,10 @@ class GenderDistributionBarChart extends ChartWidget
             ],
         ];
     }
+
+    public static function canView(): bool
+    {
+        // return parent::canView();
+        return false;
+    }
 }

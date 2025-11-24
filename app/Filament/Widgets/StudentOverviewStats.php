@@ -28,7 +28,7 @@ class StudentOverviewStats extends StatsOverviewWidget
                 ->description('Total registered students')
                 ->icon('heroicon-o-academic-cap')
                 ->color('primary'),
-                
+
             // TOTAL TEACHERS
             Stat::make('Total teachers', $totalTeachers)
                 ->description('Total school teachers')

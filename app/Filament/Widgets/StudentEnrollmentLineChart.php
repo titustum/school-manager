@@ -59,4 +59,10 @@ class StudentEnrollmentLineChart extends ChartWidget
             ],
         ];
     }
+
+    public static function canView(): bool
+    {
+        // return parent::canView();
+        return false;
+    }
 }

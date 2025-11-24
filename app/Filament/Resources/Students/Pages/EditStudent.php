@@ -18,4 +18,14 @@ class EditStudent extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function getSavedNotification(): ?\Filament\Notifications\Notification
+    {
+        $student = $this->record;
+
+        return \Filament\Notifications\Notification::make()
+            ->title('Student updated')
+            ->body("{$student->fullname} has been updated")
+            ->success();
+    }
 }

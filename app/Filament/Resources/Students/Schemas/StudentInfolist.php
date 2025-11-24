@@ -18,43 +18,64 @@ class StudentInfolist
                     ->columns(2)
                     ->columnSpanFull()
                     ->schema([
+
+                        // ---- PHOTO ----
                         ImageEntry::make('photo')
                             ->label('Student Photo')
                             ->disk('public')
                             ->circular()
-                            ->extraAttributes(['class' => 'w-36 h-36 border-2 border-gray-300'])
-                            // if male show placeholder male image else female
-                            ->defaultImageUrl(fn ($record) => $record->gender === 'male' ? asset('images/placeholder-student-male.png') : asset('images/placeholder-student-female.png')),
-                        TextEntry::make('firstname'),
-                        TextEntry::make('lastname'),
-                        TextEntry::make('middlenames')
-                            ->placeholder('-'),
-                        TextEntry::make('classroom.name')
-                            ->numeric(),
-                        TextEntry::make('classstream.name')
-                            ->numeric(),
-                        TextEntry::make('gender')
-                            ->placeholder('-'),
-                        TextEntry::make('phone')
-                            ->placeholder('-'),
+                            ->defaultImageUrl(function ($record) {
+                                $gender = strtolower($record->gender ?? 'male');
+
+                                return asset($gender === 'male'
+                                    ? 'images/male.jpg'
+                                    : 'images/female.jpg'
+                                );
+                            }),
+
+                        // ---- PERSONAL INFO ----
+                        self::text('firstname', 'First Name'),
+                        self::text('lastname', 'Last Name'),
+                        self::text('middlenames', 'Middle Names'),
+                        self::text('gender', 'Gender'),
+
+                        // ---- CLASS INFO ----
+                        self::text('classroom.name', 'Class Room'),
+                        self::text('classstream.name', 'Class Stream'),
+
+                        // ---- CONTACT ----
+                        self::text('phone', 'Phone Number'),
+                        self::text('parent_name', 'Parent Name'),
+                        self::text('parent_phone', 'Parent Phone'),
+
+                        // ---- DISABILITY / VULNERABILITY ----
                         IconEntry::make('disability')
-                            ->boolean(),
-                        TextEntry::make('disability_type')
-                            ->placeholder('-'),
-                        TextEntry::make('accommodation')
-                            ->placeholder('-'),
-                        TextEntry::make('vulnerability'),
-                        TextEntry::make('parent_name')
-                            ->placeholder('-'),
-                        TextEntry::make('parent_phone')
-                            ->placeholder('-'),
+                            ->boolean()
+                            ->label('Disability'),
+                        self::text('disability_type', 'Disability Type'),
+                        self::text('accommodation', 'Accommodation'),
+                        self::text('vulnerability', 'Vulnerability Status'),
+
+                        // ---- SYSTEM FIELDS ----
                         TextEntry::make('created_at')
                             ->dateTime()
+                            ->label('Created At')
                             ->placeholder('-'),
                         TextEntry::make('updated_at')
                             ->dateTime()
+                            ->label('Updated At')
                             ->placeholder('-'),
                     ]),
             ]);
+    }
+
+    /**
+     * Helper to cleanly create text entries with a default placeholder
+     */
+    private static function text(string $field, ?string $label = null): TextEntry
+    {
+        return TextEntry::make($field)
+            ->label($label)
+            ->placeholder('-');
     }
 }
